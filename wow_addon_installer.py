@@ -513,7 +513,7 @@ def parse_repo_readme(readme_text, repo_url):
         lines = section.strip().splitlines()
         if not lines:
             continue
-        name = lines[0].strip()
+        name = lines[0].strip().removeprefix("**").removesuffix("**").strip()
         # Skip non-addon headings (How to install, Partners, etc.)
         if len(name) > 60 or name.lower().startswith(("how to", "partner", "important", "addon list")):
             continue
