@@ -58,8 +58,8 @@ def print_banner():
         print(line)
     print()
     print(f"{BOLD}{CYAN}  ╔══════════════════════════════════════════════════════════╗{RESET}")
-    print(f"{BOLD}{CYAN}  ║   WoW 3.3.5a Addon Installer                            ║{RESET}")
-    print(f"{BOLD}{CYAN}  ║   github.com/NoM0Re/WoW-3.3.5a-Addons                  ║{RESET}")
+    print(f"{BOLD}{CYAN}  ║   WoW 3.3.5a Addon Installer                             ║{RESET}")
+    print(f"{BOLD}{CYAN}  ║   github.com/NoM0Re/WoW-3.3.5a-Addons                    ║{RESET}")
     print(f"{BOLD}{CYAN}  ╚══════════════════════════════════════════════════════════╝{RESET}")
     print()
 
@@ -480,11 +480,16 @@ def fetch_repo_readme(repo_url):
     """
     # Normalise: strip trailing slash / .git
     base = repo_url.rstrip("/").removesuffix(".git")
-    # Try common branch names
-    for branch in ("main", "master"):
-        raw_url = base.replace("github.com", "raw.githubusercontent.com") + f"/{branch}/README.md"
+    # Try common branch names, then the GitHub API if raw content is unavailable.
+    readme_urls = [
+        base.replace("github.com", "raw.githubusercontent.com") + f"/{branch}/README.md"
+        for branch in ("main", "master")
+    ]
+    readme_urls.append(base.replace("github.com", "api.github.com/repos") + "/readme")
+    for raw_url in readme_urls:
         try:
-            req = urllib.request.Request(raw_url, headers={"User-Agent": "WoW-Addon-Installer/1.0"})
+            req = urllib.request.Request(raw_url, headers={"User-Agent": "WoW-Addon-Installer/1.0",
+                                                          "Accept": "application/vnd.github.raw+json"})
             with urllib.request.urlopen(req, timeout=10) as r:
                 return r.read().decode("utf-8", errors="replace")
         except Exception:

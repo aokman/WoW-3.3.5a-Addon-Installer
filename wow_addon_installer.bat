@@ -1,0 +1,1 @@
+python ./wow_addon_installer.py
