@@ -1211,7 +1211,7 @@ def main_menu(install_dir):
     """Show the two-option main menu and return the chosen mode."""
     print()
     cprint(BOLD + CYAN, "  ╔══════════════════════════════════════════════════════════╗")
-    cprint(BOLD + CYAN, "  ║   What would you like to do?                            ║")
+    cprint(BOLD + CYAN, "  ║   What would you like to do?                             ║")
     cprint(BOLD + CYAN, "  ╚══════════════════════════════════════════════════════════╝")
     print()
     print(f"    {BOLD}1.{RESET}  Install addons")
