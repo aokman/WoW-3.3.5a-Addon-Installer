@@ -574,6 +574,7 @@ def _curses_picker(stdscr, addons):
       Enter                         – confirm and install
       Q                             – quit without installing
     """
+    addons = sorted(addons, key=lambda addon: addon[0].casefold())
     curses.curs_set(0)
     curses.start_color()
     curses.use_default_colors()
