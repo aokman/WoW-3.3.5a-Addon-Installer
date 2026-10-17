@@ -709,8 +709,8 @@ def _curses_picker(stdscr, addons):
 
     while True:
         rows, cols = stdscr.getmaxyx()
-        # Reserve rows: 3 header + 1 search + 1 footer = 5
-        list_rows = rows - 5
+        # Reserve rows: 3 header + 1 separator + 1 search + 1 footer = 6
+        list_rows = rows - 6
         visible = filtered()
 
         # Clamp cursor
